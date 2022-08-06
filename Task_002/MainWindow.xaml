@@ -1,0 +1,15 @@
+﻿<Window x:Class="Task_002.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Task_002"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="StartButton" Content="START" HorizontalAlignment="Left" Margin="132,243,0,0" VerticalAlignment="Top" Height="106" Width="210" Click="StartButton_Click"/>
+        <Button x:Name="StopButton" Content="STOP" HorizontalAlignment="Left" Margin="454,243,0,0" VerticalAlignment="Top" Height="106" Width="210" Click="StopButton_Click"/>
+        <TextBox x:Name="TextBox" HorizontalAlignment="Left" Margin="132,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="532" Height="34" FontSize="22" TextAlignment="Center"/>
+
+    </Grid>
+</Window>
