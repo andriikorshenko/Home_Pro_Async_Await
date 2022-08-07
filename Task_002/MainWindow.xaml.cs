@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using MyCustomTimer = System.Timers;
 
 namespace Task_002
 {
@@ -13,7 +12,6 @@ namespace Task_002
     public partial class MainWindow : Window
     {
         private CancellationTokenSource? _cancelToken = null;
-        private MyCustomTimer.Timer _timer = new();
 
         public MainWindow()
         {
@@ -22,7 +20,6 @@ namespace Task_002
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
-            _timer.Stop();
             _cancelToken?.Cancel();
 
             Dispatcher.Invoke(() =>
@@ -35,34 +32,19 @@ namespace Task_002
         {
             _cancelToken = new CancellationTokenSource();
 
-            _timer.Start();
-
             await DbConnectAsync(_cancelToken.Token);
 
-            try
+            for (int i = 1; i < 100; i++)
             {
-                for (int i = 0; i < 100; i++)
+                try
                 {
-                    try
-                    {
-                        await OperationAsync(i, _cancelToken.Token);
-                    }
-                    catch (OperationCanceledException ex)
-                    {
-                        TextBox.Text = ex.ToString();
-                        throw;
-                    }
+                    await OperationAsync(i, _cancelToken.Token);
                 }
-            }
-            catch (OperationCanceledException ex)
-            {
-                TextBox.Text = ex.ToString();
-                throw;
-            }
-            catch (Exception ex)
-            {
-                TextBox.Text = ex.ToString();
-                throw;
+                catch (OperationCanceledException ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
             }
             _cancelToken = null!;
             TextBox.Text = "Completed!";
@@ -84,10 +66,7 @@ namespace Task_002
             }
             catch (OperationCanceledException ex)
             {
-                Dispatcher.Invoke(() =>
-                {
-                    TextBox.Text = ex.ToString();
-                });
+                Console.WriteLine(ex);
                 throw;
             }
         }
@@ -108,10 +87,7 @@ namespace Task_002
             }
             catch (OperationCanceledException ex)
             {
-                Dispatcher.Invoke(() =>
-                {
-                    TextBox.Text = ex.ToString();
-                });
+                Console.WriteLine(ex);
                 throw;
             }
         }
