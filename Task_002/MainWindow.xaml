@@ -10,6 +10,7 @@
         <Button x:Name="StartButton" Content="START" HorizontalAlignment="Left" Margin="132,243,0,0" VerticalAlignment="Top" Height="106" Width="210" Click="StartButton_Click"/>
         <Button x:Name="StopButton" Content="STOP" HorizontalAlignment="Left" Margin="454,243,0,0" VerticalAlignment="Top" Height="106" Width="210" Click="StopButton_Click"/>
         <TextBox x:Name="TextBox" HorizontalAlignment="Left" Margin="132,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="532" Height="34" FontSize="22" TextAlignment="Center"/>
+        <TextBox x:Name="TimerBox" HorizontalAlignment="Left" Margin="132,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="117"/>
 
     </Grid>
 </Window>

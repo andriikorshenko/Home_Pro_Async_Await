@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Task_002
 {
@@ -12,24 +13,35 @@ namespace Task_002
     public partial class MainWindow : Window
     {
         private CancellationTokenSource? _cancelToken = null;
+        DispatcherTimer _dispatcherTimer = new();
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        void timer_Tick(object sender, EventArgs e)
+        {
+            TimerBox.Text = DateTime.Now.ToLongTimeString();
+        }
+
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
-            _cancelToken?.Cancel();
-
             Dispatcher.Invoke(() =>
             {
                 TextBox.Text = "Cancel token has been activated!";
             });
+
+            _cancelToken?.Cancel();
+            _dispatcherTimer?.Stop();
         }
 
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
+            _dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+            _dispatcherTimer.Tick += timer_Tick!;
+            _dispatcherTimer.Start();
+
             _cancelToken = new CancellationTokenSource();
 
             await DbConnectAsync(_cancelToken.Token);
